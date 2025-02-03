@@ -53,10 +53,10 @@ target_include_directories(Atividade_2701 PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
+pico_generate_pio_header(Atividade_2701 ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/generated)
+
 # Add any user requested libraries
-target_link_libraries(Atividade_2701 
-        
-        )
+target_link_libraries(Atividade_2701 pico_stdlib hardware_pio)
 
 pico_add_extra_outputs(Atividade_2701)
 
