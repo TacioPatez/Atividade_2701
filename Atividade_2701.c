@@ -11,9 +11,9 @@
 #define tempo 200
 #define BOTAO_A 5
 #define BOTAO_B 6
-#define LED_R 11
-#define LED_G 12
-#define LED_B 13
+#define LED_R 13
+#define LED_G 11
+#define LED_B 12
 
 // Variável global para armazenar a cor (Entre 0 e 255 para intensidade)
 uint8_t led_r = 0; // Intensidade do vermelho
@@ -28,18 +28,18 @@ static volatile uint32_t last_time = 0;
 
 // Buffer para armazenar quais LEDs estão ligados matriz 5x5
 bool led_buffer_1[NUM_PIXELS] = {
+    0, 1, 0, 0, 0, 
     0, 0, 0, 1, 0, 
+    0, 1, 0, 0, 0, 
     0, 0, 0, 1, 0, 
-    0, 0, 0, 1, 0, 
-    0, 0, 0, 1, 0, 
-    0, 0, 0, 1, 0
+    0, 1, 0, 0, 0
 };
 
 bool led_buffer_2[NUM_PIXELS] = {
     0, 1, 1, 1, 0, 
-    0, 0, 0, 1, 0, 
-    0, 1, 1, 1, 0, 
     0, 1, 0, 0, 0, 
+    0, 1, 1, 1, 0, 
+    0, 0, 0, 1, 0, 
     0, 1, 1, 1, 0
 };
 
@@ -52,35 +52,35 @@ bool led_buffer_3[NUM_PIXELS] = {
 };
 
 bool led_buffer_4[NUM_PIXELS] = {
-    0, 1, 0, 1, 0, 
-    0, 1, 0, 1, 0, 
-    0, 1, 1, 1, 0, 
+    0, 1, 0, 0, 0, 
     0, 0, 0, 1, 0, 
-    0, 0, 0, 1, 0
+    0, 1, 1, 1, 0, 
+    0, 1, 0, 1, 0, 
+    0, 1, 0, 1, 0
 };
 
 bool led_buffer_5[NUM_PIXELS] = {
     0, 1, 1, 1, 0, 
-    0, 1, 0, 0, 0, 
-    0, 1, 1, 1, 0, 
     0, 0, 0, 1, 0, 
+    0, 1, 1, 1, 0, 
+    0, 1, 0, 0, 0, 
     0, 1, 1, 1, 0
 };
 
 bool led_buffer_6[NUM_PIXELS] = {
     0, 1, 1, 1, 0, 
-    0, 1, 0, 0, 0, 
-    0, 1, 1, 1, 0, 
     0, 1, 0, 1, 0, 
+    0, 1, 1, 1, 0, 
+    0, 1, 0, 0, 0, 
     0, 1, 1, 1, 0
 };
 
 bool led_buffer_7[NUM_PIXELS] = {
-    0, 1, 1, 1, 0, 
+    0, 1, 0, 0, 0, 
     0, 0, 0, 1, 0, 
+    0, 1, 0, 0, 0, 
     0, 0, 0, 1, 0, 
-    0, 0, 0, 1, 0, 
-    0, 0, 0, 1, 0
+    0, 1, 1, 1, 0
 };
 
 bool led_buffer_8[NUM_PIXELS] = {
@@ -93,9 +93,9 @@ bool led_buffer_8[NUM_PIXELS] = {
 
 bool led_buffer_9[NUM_PIXELS] = {
     0, 1, 1, 1, 0, 
-    0, 1, 0, 1, 0, 
-    0, 1, 1, 1, 0, 
     0, 0, 0, 1, 0, 
+    0, 1, 1, 1, 0, 
+    0, 1, 0, 1, 0, 
     0, 1, 1, 1, 0
 };
 
@@ -189,6 +189,8 @@ int main()
     gpio_set_irq_enabled_with_callback(BOTAO_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
     gpio_set_irq_enabled_with_callback(BOTAO_B, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
 
+    //  ativa leds da matriz
+    set_one_led();
 
     while (1)
     {
